@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DdgAiProxy", "DdgAiProxy.csproj", "{85B43B48-E3F0-41C8-82D8-B3B1FA0CCFDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{85B43B48-E3F0-41C8-82D8-B3B1FA0CCFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85B43B48-E3F0-41C8-82D8-B3B1FA0CCFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85B43B48-E3F0-41C8-82D8-B3B1FA0CCFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85B43B48-E3F0-41C8-82D8-B3B1FA0CCFDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BABF5F7-3474-4B7A-9973-271421B1349C}
+	EndGlobalSection
+EndGlobal
