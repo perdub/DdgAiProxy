@@ -3,6 +3,8 @@ using System.Text;
 using System.Text.Json;
 using DdgAiProxy;
 
+namespace DdgAiProxy;
+
 public class DialogManager
 {
     private Model model = Model.Gpt3_5_turbo;

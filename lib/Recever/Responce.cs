@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 
+namespace DdgAiProxy;
 public class Response{
     [JsonPropertyName("message")]
     public string Message{get;set;}
