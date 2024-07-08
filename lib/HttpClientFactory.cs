@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 
 namespace DdgAiProxy;
 
