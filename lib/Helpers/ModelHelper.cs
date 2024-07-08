@@ -20,4 +20,18 @@ public static class ModelIds{
         }
         return string.Empty;
     }
+    public static Model GetModel(this string str){
+        switch(str){
+            case "gpt-3.5-turbo-0125":
+                return Model.Gpt3_5_turbo;
+            case "claude-3-haiku-20240307":
+                return Model.Claude3_Haiku;
+            case "meta-llama/Llama-3-70b-chat-hf":
+                return Model.Llama3_70B;
+            case "mistralai/Mixtral-8x7B-Instruct-v0.1":
+                return Model.Mixtral_8x7B;
+            default:
+                throw new Exception("fall to GetModel");
+        }
+    }
 }
