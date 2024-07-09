@@ -18,6 +18,7 @@ public class DialogManager
     }
     public async Task Init(Model model)
     {
+        payload = PayloadBuilder.BuildEmpty(model);
         this.model = model;
         await getCode();
     }
@@ -30,10 +31,10 @@ public class DialogManager
             payload.AddMessage(message);
         }
 
-        return await talk();
+        return await Talk();
     }
 
-    private async Task<string> talk(){
+    public async Task<string> Talk(){
         string json = payload.ToJson();
         var content = new StringContent(json, Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
 
@@ -64,6 +65,11 @@ public class DialogManager
         httpRequestMessage.Headers.Add("x-vqd-accept", "1");
         var respSt = await client.SendAsync(httpRequestMessage);
         vqdCode = respSt.Headers.GetValues("x-vqd-4").ToList()[0];
+    }
+
+    public void DirectAddMessage(Message message){
+
+        payload.AddMessage(message);
     }
 
 }

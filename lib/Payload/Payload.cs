@@ -7,5 +7,5 @@ public class Payload
     [JsonPropertyName("model")]
     public string ModelName {get;set;}
     [JsonPropertyName("messages")]
-    public Message[] Messages {get;set;}
+    public Message[] Messages {get;set;} = new Message[0];
 }

@@ -12,6 +12,11 @@ public static class PayloadBuilder{
         };
         return payload;
     }
+    public static Payload BuildEmpty(Model model = Model.Gpt3_5_turbo){
+        Payload payload = new Payload();
+        payload.ModelName = model.GetName();
+        return payload;
+    }
     public static string ToJson(this Payload payload){
         return JsonSerializer.Serialize<Payload>(payload, new JsonSerializerOptions{
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
@@ -21,6 +26,12 @@ public static class PayloadBuilder{
         Message[] messages = new Message[payload.Messages.Length+1];
         Array.Copy(payload.Messages, messages, payload.Messages.Length);
         messages[payload.Messages.Length] = new Message(role, userMessage);
+        payload.Messages = messages;
+    }
+    public static void AddMessage(this Payload payload, Message message){
+        Message[] messages = new Message[payload.Messages.Length+1];
+        Array.Copy(payload.Messages, messages, payload.Messages.Length);
+        messages[payload.Messages.Length] = message;
         payload.Messages = messages;
     }
 }
