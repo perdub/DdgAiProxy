@@ -1,10 +1,23 @@
-#i fucking hate cicd
-name: "Nuget Publish"
+name: "Tests"
 on:
     push:
+    schedule:
+        - cron: '0 8 * * *'
 
 jobs:
+    test:
+        runs-on: windows-latest
+
+        steps:
+        - name: Clone
+          uses: actions/checkout@v3
+
+        - name: Test
+          run: dotnet test --logger "console;verbosity=detailed"
+          
     nuget:
+        needs: test
+        if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
 
         steps:
@@ -14,7 +27,7 @@ jobs:
         - name: Create
           run: |
             cd lib
-            dotnet pack -c Release /p:Version=0.1.${{ github.run_number }}-commit-$GITHUB_SHA
+            dotnet pack -c Release /p:Version=0.1.${{ github.run_number }}
             cd bin/Release
             for file in *.nupkg; do
               new_name="test.nupkg"
@@ -22,3 +35,6 @@ jobs:
               break
             done
             dotnet nuget push test.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
+
+
+
