@@ -10,14 +10,14 @@ jobs:
         - name: Clone
           uses: actions/checkout@v3
 
-        - name: dir
-          run: ls -r && cd lib
-
-        - name: Pack
-          run: dotnet pack
-
-        - name: dir
-          run: ls -r && cd lib/bin/Release && mv *.nupkg temp.nupkg
-
-        - name: Push
-          run: dotnet nuget push temp.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
+        - name: Create
+          run: |
+            сd lib
+            dotnet pack
+            cd bin/Release
+            for file in *.nupkg; do
+              new_name="test.nupkg"
+              mv "$file" "$new_name"
+              break
+            done
+            dotnet nuget push temp.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
