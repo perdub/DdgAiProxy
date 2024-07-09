@@ -13,7 +13,7 @@ jobs:
         - name: Create
           run: |
             cd lib
-            dotnet pack
+            dotnet pack -c Release --version-suffix "commit-$GITHUB_SHA"
             cd bin/Release
             for file in *.nupkg; do
               new_name="test.nupkg"
