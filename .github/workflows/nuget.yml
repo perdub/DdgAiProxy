@@ -1,0 +1,20 @@
+name: "Nuget Publish"
+on:
+    push:
+
+jobs:
+    nuget:
+        runs-on: windows-latest
+
+        steps:
+        - name: Clone
+          uses: actions/checkout@v3
+
+        - name: dir
+          run: cd lib
+
+        - name: Pack
+          run: dotnet pack
+
+        - name: Push
+          run: dotnet nuget push "/bin/Release/*.nupkg" -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
