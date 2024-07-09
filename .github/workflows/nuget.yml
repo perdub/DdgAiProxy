@@ -16,5 +16,8 @@ jobs:
         - name: Pack
           run: dotnet pack
 
+        - name: dir
+          run: cd bin/Release
+
         - name: Push
-          run: dotnet nuget push "/bin/Release/*.nupkg" -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
+          run: dotnet nuget push "*.nupkg" -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
