@@ -12,7 +12,7 @@ jobs:
 
         - name: Create
           run: |
-            сd lib
+            cd lib
             dotnet pack
             cd bin/Release
             for file in *.nupkg; do
