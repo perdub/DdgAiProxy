@@ -1,3 +1,4 @@
+#i fucking hate cicd
 name: "Nuget Publish"
 on:
     push:
@@ -13,7 +14,7 @@ jobs:
         - name: Create
           run: |
             cd lib
-            dotnet pack -c Release /p:Version "0.1.${{ github.run_attempt }}-commit-$GITHUB_SHA"
+            dotnet pack -c Release /p:Version 0.1.${{ github.run_number }}-commit-$GITHUB_SHA
             cd bin/Release
             for file in *.nupkg; do
               new_name="test.nupkg"
