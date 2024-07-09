@@ -20,4 +20,4 @@ jobs:
               mv "$file" "$new_name"
               break
             done
-            dotnet nuget push temp.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
+            dotnet nuget push test.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
