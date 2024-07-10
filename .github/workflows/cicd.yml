@@ -57,18 +57,15 @@ jobs:
       #if: github.ref == 'refs/heads/main'
       runs-on: ubuntu-latest
       steps:
+
+        - run: mkdir bin && cd bin
+
         - uses: actions/download-artifact@v4
-        - name: Install 7Zip
+        
+        - name: Release
           run: |
-            sudo apt-get install p7zip-full
-        - name: Pack all artifacts
-          run: |
-            for bld in ./;
-            do
-              (7z a $bld '$bld.7z')
-            done
-        - name: Display structure of downloaded files
-          run: ls -R
+            cd ..
+            gh release create v${{env.ver}} ./bin/*/
         
 
     bin-server:
