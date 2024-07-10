@@ -54,7 +54,7 @@ jobs:
 
     draft-release:
       needs: bin-server
-      #if: github.ref == 'refs/heads/main'
+      if: github.ref == 'refs/heads/main'
       runs-on: ubuntu-latest
       env:
         GH_TOKEN: ${{ github.token }}
