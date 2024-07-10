@@ -52,6 +52,15 @@ jobs:
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
 
+    draft-release:
+      needs: bin-server
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/download-artifact@v4
+        - name: Display structure of downloaded files
+          run: ls -R
+
 
     bin-server:
       needs: test
