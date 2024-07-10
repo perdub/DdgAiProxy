@@ -2,6 +2,7 @@ using DdgAiProxy;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.WebHost.ConfigureKestrel(k=>k.ListenAnyIP(5000));
 builder.Services.AddSingleton<CustomClient>(new CustomClient());
 builder.Services.AddSingleton<GlobalDialogManager>();
 builder.Services.AddControllers();

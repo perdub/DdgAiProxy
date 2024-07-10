@@ -4,6 +4,9 @@ on:
     schedule:
         - cron: '0 8 * * *'
 
+env:
+  ver: 0.1.${{ github.run_number }}
+
 jobs:
     test:
         runs-on: windows-latest
@@ -27,7 +30,7 @@ jobs:
         - name: Create
           run: |
             cd lib
-            dotnet pack -c Release /p:Version=0.1.${{ github.run_number }}
+            dotnet pack -c Release /p:Version=$ver
             cd bin/Release
             for file in *.nupkg; do
               new_name="test.nupkg"
@@ -35,6 +38,18 @@ jobs:
               break
             done
             dotnet nuget push test.nupkg -k ${{secrets.NUGET_API}} --source https://api.nuget.org/v3/index.json
+
+    docker:
+        needs: test
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Build
+            run: |
+              docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_TOKEN}}
+              docker build -t perdub/ddg-ai-proxy:${{env.ver}} -t perdub/ddg-ai-proxy:latest .
+              docker image push perdub/ddg-ai-proxy:latest
 
 
 
