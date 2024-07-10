@@ -58,9 +58,18 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/download-artifact@v4
+        - name: Install 7Zip
+          run: |
+            sudo apt-get install p7zip-full
+        - name: Pack all artifacts
+          run: |
+            for bld in ./;
+            do
+              (7z a $bld '$bld.7z')
+            done
         - name: Display structure of downloaded files
           run: ls -R
-
+        
 
     bin-server:
       needs: test
