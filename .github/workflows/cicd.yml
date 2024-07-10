@@ -52,12 +52,12 @@ jobs:
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
 
-              
+
     bin-server:
       needs: test
       strategy:
         matrix:
-          target-os: ["win-x64", "linux-x64"]
+          target-os: ["win", "linux"]
           self-contained: [true, false]
           configuration: ["Debug", "Release"]
       runs-on: ubuntu-latest
