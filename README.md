@@ -23,6 +23,12 @@ and after this you can make requests to api.
 
 If you can\`t or don\`t want to use Docker, you can run it as standalone application. Compile it by yourself or use [autobuilded binarys from release page](https://github.com/perdub/DdgAiProxy/releases/latest).
 
+If you have installed .Net on your computer, you can download builds `*-isSelfContained-false`, otherwise, you should use `isSelfContained-true` builds which includes all stuff.
+
+### Api usage
+
+You can use 2 different apis: custom and OpenAi-compatible. Openai-compatible api intended to use as custom endpoint, so you can replace api endpoint in any program to this api. It\`s not working correctly, because by this moment implemented only `/chat/completions` and only with necessarily fileds in request and responce(from OpenAi OpenApi scheme). 
+
 
 ## As Libary
 ![NuGet Version](https://img.shields.io/nuget/v/DdgAi?color=blue)  
