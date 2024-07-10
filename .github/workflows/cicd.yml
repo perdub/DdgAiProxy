@@ -66,12 +66,18 @@ jobs:
             
         - uses: actions/download-artifact@v4
             
-        - run: ls -R && mkdir bin 
+        - run: ls -R && mkdir bin
+        - name: Zip folders
+          run: |
+            for dir in */; do
+              base=$(basename "$dir")
+              zip -r "$base.zip" "$dir"
+            done
         
         - name: Release
           run: |
             
-            gh release create v${{env.ver}} */
+            gh release create v${{env.ver}} *.zip
         
 
     bin-server:
