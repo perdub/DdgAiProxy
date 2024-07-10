@@ -29,6 +29,15 @@ If you have installed .Net on your computer, you can download builds `*-isSelfCo
 
 You can use 2 different apis: custom and OpenAi-compatible. Openai-compatible api intended to use as custom endpoint, so you can replace api endpoint in any program to this api. It\`s not working correctly, because by this moment implemented only `/chat/completions` and only with necessarily fileds in request and responce(from OpenAi OpenApi scheme). 
 
+#### Custom Api
+For init dialog, call `/base/api/init` with `model=0` as query param, where value it\`s a `Number representation`
+| Model | Number representation | Model Name |
+|---|---|---|
+| GPT-3.5-turbo | 0 | gpt-3.5-turbo-0125 |
+| Claude 3 Haiku | 1 | claude-3-haiku-20240307 |
+| Llama 3 70B | 2 | meta-llama/Llama-3-70b-chat-hf |
+| Mixtral 8x7B | 3 | mistralai/Mixtral-8x7B-Instruct-v0.1 |
+Response will be contain a `ddg-ai-proxy-guid` header, which represent you dialog id. After this, call `/base/api/talk` with 2 query params: `guid` - header from previous request and `message` - you prompt to llm.
 
 ## As Libary
 ![NuGet Version](https://img.shields.io/nuget/v/DdgAi?color=blue)  
@@ -54,3 +63,9 @@ After this, with ```CustomClient``` instance, we can create our ```DialogManager
 
 Now we are ready to send and response: call ```SendMessages(string text)``` and pass prompt to LLM, function will return LLM response(if all staff are not broken in this moment). 
 
+## TODO:
+- [] refactoring libary code
+- [] refactoring web server code
+- [] add more tool to control web server(like clear old dialogs(yeah it\`s not implemented now))
+- [] add proxy support
+- [] ???
