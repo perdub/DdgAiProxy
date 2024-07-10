@@ -59,12 +59,21 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       steps:
-                   
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 5
+            
         - uses: actions/download-artifact@v4
             
-        - run: ls -R && mkdir bin
-        - name: Zip folders
+        - run: ls -R
+        - name: Clear and Zip folders
           run: |
+            shopt -s extglob
+            for dir in !(*-Release-*)/; do
+              echo "Deleting folder $dir"
+              rm -rf "$dir"
+            done
+
             for dir in */; do
               base=$(basename "$dir")
               zip -r "$base.zip" "$dir"
@@ -72,7 +81,6 @@ jobs:
         
         - name: Release
           run: |
-            
             gh release create v${{env.ver}} *.zip
         
 
