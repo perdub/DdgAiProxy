@@ -67,7 +67,7 @@ jobs:
         - name: Release
           run: |
             cd ..
-            gh release create v${{env.ver}} ./bin/*/
+            gh release create v${{env.ver}} */
         
 
     bin-server:
