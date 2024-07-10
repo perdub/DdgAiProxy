@@ -45,12 +45,24 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v4
+
           - name: Build
             run: |
               docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_TOKEN}}
               docker build -t perdub/ddg-ai-proxy:${{env.ver}} -t perdub/ddg-ai-proxy:latest .
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
+
+          - name: push README to Dockerhub
+            uses: christian-korneck/update-container-description-action@v1
+            env:
+              DOCKER_USER: ${{secrets.DOCKER_USER}}
+              OCKER_PASS: ${{secrets.DOCKER_TOKEN}}
+            with:
+              estination_container_repo: perdub/ddg-ai-proxy:latest
+              provider: dockerhub
+              hort_description: 'Proxy server for Duckduckgo Ai'
+              eadme_file: 'README.md'
 
     draft-release:
       needs: bin-server
