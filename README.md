@@ -28,4 +28,4 @@ Now we are ready to send and response: call ```SendMessages(string text)``` and 
 
 ## As Server
 
-Not everyone familiar with C#(or other .Net languages), so, if you want, you can use it as web server with http api. 
+Not everyone familiar with C#(or other .Net languages), so, if you want, you can use it as web server with http api.

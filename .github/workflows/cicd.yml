@@ -52,5 +52,25 @@ jobs:
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
 
+              
+    bin-server:
+      needs: test
+      strategy:
+        matrix:
+          target-os: ["win-x64", "linux-x64"]
+          self-contained: [true, false]
+          configuration: ["Debug", "Release"]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: build
+          run: |
+            dotnet publish web/DdgAiProxy.csproj -c ${{matrix.configuration}} --sc ${{matrix.self-contained}} --os ${{matrix.target-os}} -o /result
+
+        - uses: actions/upload-artifact@v4
+          with:
+              name: ${{matrix.target-os}}-${{matrix.configuration}}-isSelfContained-${{matrix.self-contained}}
+              path: /result
+
 
 
