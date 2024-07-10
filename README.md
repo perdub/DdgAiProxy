@@ -37,6 +37,7 @@ For init dialog, call `/base/api/init` with `model=0` as query param, where valu
 | Claude 3 Haiku | 1 | claude-3-haiku-20240307 |
 | Llama 3 70B | 2 | meta-llama/Llama-3-70b-chat-hf |
 | Mixtral 8x7B | 3 | mistralai/Mixtral-8x7B-Instruct-v0.1 |
+
 Response will be contain a `ddg-ai-proxy-guid` header, which represent you dialog id. After this, call `/base/api/talk` with 2 query params: `guid` - header from previous request and `message` - you prompt to llm.
 
 ## As Libary
@@ -64,8 +65,10 @@ After this, with ```CustomClient``` instance, we can create our ```DialogManager
 Now we are ready to send and response: call ```SendMessages(string text)``` and pass prompt to LLM, function will return LLM response(if all staff are not broken in this moment). 
 
 ## TODO:
-- [] refactoring libary code
-- [] refactoring web server code
-- [] add more tool to control web server(like clear old dialogs(yeah it\`s not implemented now))
-- [] add proxy support
-- [] ???
+- [ ] refactoring libary code
+- [ ] refactoring web server code
+- [ ] add more tool to control web server(like clear old dialogs(yeah it\`s not implemented now))
+- [ ] add proxy support
+- [ ] Net Standart support
+- [ ] Support things like aot and trimming
+- [ ] ???
