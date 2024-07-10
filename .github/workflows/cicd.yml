@@ -59,11 +59,7 @@ jobs:
       env:
         GH_TOKEN: ${{ github.token }}
       steps:
-        - uses: actions/checkout@v4
-          with:
-            fetch-depth: 5
-
-            
+                   
         - uses: actions/download-artifact@v4
             
         - run: ls -R && mkdir bin
