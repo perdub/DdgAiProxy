@@ -8,15 +8,12 @@ using DdgAiProxy;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-public class OpenAiCompatibleApiController : Controller{
-    private class Usage
-    {
-        public int prompt_tokens { get; set; } = 100;
-        public double prompt_time { get; set; } = 0.004;
-        public int completion_tokens { get; set; } = 200;
-        public double completion_time { get; set; } = 0.1;
-        public int total_tokens { get; set; } = 588;
-        public double total_time { get; set; } = 0.55;
+public class OpenAiCompatibleApiController(CustomClient client) : Controller{
+    public class ChatCompletionRequest{
+        [JsonPropertyName("model")]
+        public string Model {get;set;}
+        [JsonPropertyName("messages")]
+        public Message[] Messages {get;set;}
     }
         private class respone{
             [JsonPropertyName("created")]
@@ -42,9 +39,25 @@ public class OpenAiCompatibleApiController : Controller{
         }
     [Route("/chat/completions")]
     [HttpPost]
-    public async Task<IActionResult> Comp(){
+    public async Task<IActionResult> Comp([FromBody] ChatCompletionRequest chatCompletionRequest){
+        Model model;
+        try{
+            model = chatCompletionRequest.Model.GetModel();
+        }
+        catch{
+            model = Model.Gpt3_5_turbo;
+            HttpContext.Response.Headers.Append("ddg-ai-proxy-notify", "Model incorrect, gpt3.5 will be selected and used.");
+        }
 
-
+        DialogManager dialogManager = new DialogManager(client);
+        await dialogManager.Init(model);
+        foreach(var inputMessage in chatCompletionRequest.Messages){
+            dialogManager.DirectAddMessage(
+                inputMessage
+            );
+        }
+        string newData = await dialogManager.Talk();
+        
 
         return Json(new respone{
             Created = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeSeconds().ToString(),
@@ -53,7 +66,7 @@ public class OpenAiCompatibleApiController : Controller{
             Obj = "chat.completion",
             choises = new choise[]{
                 new choise{
-                    message = new Message("assistant","блять")
+                    message = new Message("assistant",newData)
                     }
                 }
         }, new JsonSerializerOptions{IncludeFields=true,WriteIndented=true, DefaultIgnoreCondition = JsonIgnoreCondition.Never});
