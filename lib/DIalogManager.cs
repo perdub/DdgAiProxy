@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -42,7 +43,7 @@ public class DialogManager
             "https://duckduckgo.com/duckchat/v1/chat",
             content,
             vqdCode);
-            
+        Debug.Print(respone.StatusCode.ToString());
         vqdCode = respone.Headers.GetValues("x-vqd-4").First();
         var stream = respone.Content.ReadAsStream();
         var sr = new StreamReader(stream);

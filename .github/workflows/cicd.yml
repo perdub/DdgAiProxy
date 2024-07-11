@@ -31,7 +31,6 @@ jobs:
 
         - name: Create
           run: |
-            mv README.md lib/README.md
             cd lib
             dotnet pack -c Release /p:Version=$ver
             cd bin/Release
@@ -55,13 +54,6 @@ jobs:
               docker build -t perdub/ddg-ai-proxy:${{env.ver}} -t perdub/ddg-ai-proxy:latest .
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
-
-          - name: Docker Hub Description
-            uses: peter-evans/dockerhub-description@v4
-            with:
-              username: ${{ secrets.DOCKER_USER }}
-              password: ${{ secrets.DOCKER_TOKEN }}
-              repository: peterevans/dockerhub-description
 
     draft-release:
       needs: bin-server
@@ -97,7 +89,7 @@ jobs:
 
     bin-server:
       needs: test
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      if: github.event_name == 'push'
       strategy:
         matrix:
           target-os: ["win", "linux"]
