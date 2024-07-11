@@ -1,6 +1,8 @@
 name: "Tests"
 on:
     push:
+      paths-ignore:
+      - '**/*.md'
     schedule:
         - cron: '0 8 * * *'
 
@@ -20,7 +22,7 @@ jobs:
           
     nuget:
         needs: test
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
 
         steps:
@@ -29,6 +31,7 @@ jobs:
 
         - name: Create
           run: |
+            mv README.md lib/README.md
             cd lib
             dotnet pack -c Release /p:Version=$ver
             cd bin/Release
@@ -41,7 +44,7 @@ jobs:
 
     docker:
         needs: test
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v4
@@ -53,16 +56,12 @@ jobs:
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
 
-          - name: push README to Dockerhub
-            uses: christian-korneck/update-container-description-action@v1
-            env:
-              DOCKER_USER: ${{secrets.DOCKER_USER}}
-              OCKER_PASS: ${{secrets.DOCKER_TOKEN}}
+          - name: Docker Hub Description
+            uses: peter-evans/dockerhub-description@v4
             with:
-              estination_container_repo: perdub/ddg-ai-proxy:latest
-              provider: dockerhub
-              hort_description: 'Proxy server for Duckduckgo Ai'
-              eadme_file: 'README.md'
+              username: ${{ secrets.DOCKER_USER }}
+              password: ${{ secrets.DOCKER_TOKEN }}
+              repository: peterevans/dockerhub-description
 
     draft-release:
       needs: bin-server
@@ -98,6 +97,7 @@ jobs:
 
     bin-server:
       needs: test
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       strategy:
         matrix:
           target-os: ["win", "linux"]
