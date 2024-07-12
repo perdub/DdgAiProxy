@@ -47,7 +47,7 @@ public class DialogManager
             "https://duckduckgo.com/duckchat/v1/chat",
             content,
             vqdCode);
-            
+        Debug.Print(respone.StatusCode.ToString());
         vqdCode = respone.Headers.GetValues("x-vqd-4").First();
         var stream = respone.Content.ReadAsStream();
         var sr = new StreamReader(stream);
@@ -69,7 +69,17 @@ public class DialogManager
         HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Get, "https://duckduckgo.com/duckchat/v1/status");
         httpRequestMessage.Headers.Add("x-vqd-accept", "1");
         var respSt = await client.SendAsync(httpRequestMessage);
-        vqdCode = respSt.Headers.GetValues("x-vqd-4").ToList()[0];
+
+        IEnumerable<string>? headers;
+        bool result = respSt.Headers.TryGetValues("x-vqd-4", out headers);
+        if(result){
+            vqdCode = headers.First();
+        }
+        else{
+            throw new Exception(
+                $"Fall to get code: {respSt.StatusCode}, {await respSt.Content.ReadAsStringAsync()}"
+            );
+        }
     }
 
     public void DirectAddMessage(Message message){

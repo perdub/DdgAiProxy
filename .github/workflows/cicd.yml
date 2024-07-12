@@ -1,11 +1,13 @@
 name: "Tests"
 on:
     push:
+      paths-ignore:
+      - '**/*.md'
     schedule:
         - cron: '0 8 * * *'
 
 env:
-  ver: 0.1.${{ github.run_number }}
+  ver: 0.2.${{ github.run_number }}
 
 jobs:
     test:
@@ -13,19 +15,19 @@ jobs:
 
         steps:
         - name: Clone
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Test
           run: dotnet test --logger "console;verbosity=detailed"
           
     nuget:
         needs: test
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
 
         steps:
         - name: Clone
-          uses: actions/checkout@v3
+          uses: actions/checkout@v4
 
         - name: Create
           run: |
@@ -41,16 +43,68 @@ jobs:
 
     docker:
         needs: test
-        if: github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v3
+          - uses: actions/checkout@v4
+
           - name: Build
             run: |
               docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_TOKEN}}
               docker build -t perdub/ddg-ai-proxy:${{env.ver}} -t perdub/ddg-ai-proxy:latest .
               docker image push perdub/ddg-ai-proxy:${{env.ver}}
               docker image push perdub/ddg-ai-proxy:latest
+
+    draft-release:
+      needs: bin-server
+      if: github.ref == 'refs/heads/main'
+      runs-on: ubuntu-latest
+      env:
+        GH_TOKEN: ${{ github.token }}
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 5
+            
+        - uses: actions/download-artifact@v4
+            
+        - run: ls -R
+        - name: Clear and Zip folders
+          run: |
+            shopt -s extglob
+            for dir in !(*-Release-*)/; do
+              echo "Deleting folder $dir"
+              rm -rf "$dir"
+            done
+
+            for dir in */; do
+              base=$(basename "$dir")
+              zip -r "$base.zip" "$dir"
+            done
+        
+        - name: Release
+          run: |
+            gh release create v${{env.ver}} *.zip
+        
+
+    bin-server:
+      needs: test
+      if: github.event_name == 'push'
+      strategy:
+        matrix:
+          target-os: ["win", "linux"]
+          self-contained: [true, false]
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - name: build
+          run: |
+            sudo dotnet publish web/DdgAiProxy.csproj -c Release --sc ${{matrix.self-contained}} --os ${{matrix.target-os}} -o /result
+
+        - uses: actions/upload-artifact@v4
+          with:
+              name: ${{matrix.target-os}}-Release-isSelfContained-${{matrix.self-contained}}
+              path: /result
 
 
 
