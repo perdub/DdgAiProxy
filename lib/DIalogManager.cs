@@ -37,8 +37,7 @@ public class DialogManager
 
     public async Task<string> Talk(){
         if(string.IsNullOrEmpty(vqdCode)){
-            Debug.WriteLine("Warning: context are not init yet. Default model will be use.");
-            await Init(Model.Gpt3_5_turbo);
+            throw new DialogNotInitException("Dialog are not init, you should call Init() before sending messages.");
         }
         string json = payload.ToJson();
         var content = new StringContent(json, Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
@@ -47,7 +46,12 @@ public class DialogManager
             "https://duckduckgo.com/duckchat/v1/chat",
             content,
             vqdCode);
-        Debug.Print(respone.StatusCode.ToString());
+            
+        if(respone.StatusCode!=System.Net.HttpStatusCode.OK){
+            Debug.Print(respone.StatusCode.ToString());
+            throw new FalledRequestException($"Fall to send chat request. Status code: {respone.StatusCode}");
+        }
+
         vqdCode = respone.Headers.GetValues("x-vqd-4").First();
         var stream = respone.Content.ReadAsStream();
         var sr = new StreamReader(stream);
