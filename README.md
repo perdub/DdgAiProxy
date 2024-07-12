@@ -41,7 +41,7 @@ For init dialog, call `/base/api/init` with `model=0` as query param, where valu
 Response will be contain a `ddg-ai-proxy-guid` header, which represent you dialog id. After this, call `/base/api/talk` with 2 query params: `guid` - header from previous request and `message` - you prompt to llm.
 
 ## As Libary
-![NuGet Version](https://img.shields.io/nuget/v/DdgAi?color=blue)  
+[![NuGet Version](https://img.shields.io/nuget/v/DdgAi?color=blue)](https://www.nuget.org/packages/DdgAi/)
 
 ### Adding
 You can add nuget package to you project with
