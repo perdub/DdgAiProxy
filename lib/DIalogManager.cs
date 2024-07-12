@@ -13,6 +13,12 @@ public class DialogManager
     private CustomClient client;
 
     private string vqdCode = string.Empty;
+    
+    public bool IsReady{
+        get{
+            return !string.IsNullOrEmpty(vqdCode);
+        }
+    }
     public DialogManager(CustomClient customClient)
     {
         client = customClient;
@@ -46,7 +52,7 @@ public class DialogManager
             "https://duckduckgo.com/duckchat/v1/chat",
             content,
             vqdCode);
-            
+
         if(respone.StatusCode!=System.Net.HttpStatusCode.OK){
             Debug.Print(respone.StatusCode.ToString());
             throw new FalledRequestException($"Fall to send chat request. Status code: {respone.StatusCode}");
