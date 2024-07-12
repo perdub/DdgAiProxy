@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
@@ -11,12 +12,12 @@ public class DialogManager
     private Payload payload;
     private CustomClient client;
 
-    private string vqdCode;
+    private string vqdCode = string.Empty;
     public DialogManager(CustomClient customClient)
     {
         client = customClient;
     }
-    public async Task Init(Model model)
+    public async Task Init(Model model = Model.Gpt3_5_turbo)
     {
         payload = PayloadBuilder.BuildEmpty(model);
         this.model = model;
@@ -35,6 +36,10 @@ public class DialogManager
     }
 
     public async Task<string> Talk(){
+        if(string.IsNullOrEmpty(vqdCode)){
+            Debug.WriteLine("Warning: context are not init yet. Default model will be use.");
+            await Init(Model.Gpt3_5_turbo);
+        }
         string json = payload.ToJson();
         var content = new StringContent(json, Encoding.UTF8, new MediaTypeHeaderValue("application/json"));
 
