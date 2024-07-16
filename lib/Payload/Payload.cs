@@ -1,11 +1,13 @@
 using System.Text.Json.Serialization;
 
-namespace DdgAiProxy;
-
-public class Payload
+namespace DdgAiProxy
 {
-    [JsonPropertyName("model")]
-    public string ModelName {get;set;}
-    [JsonPropertyName("messages")]
-    public Message[] Messages {get;set;} = new Message[0];
+
+    public class Payload
+    {
+        [JsonPropertyName("model")]
+        public string ModelName { get; set; }
+        [JsonPropertyName("messages")]
+        public Message[] Messages { get; set; } = new Message[0];
+    }
 }
