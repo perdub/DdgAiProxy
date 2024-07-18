@@ -16,10 +16,10 @@ namespace DdgAiProxy
     public class DialogManager
     {
         private Model model = Model.Gpt3_5_turbo;
-        private Payload payload;
-        private CustomClient client;
+        protected Payload payload;
+        protected CustomClient client;
 
-        private string vqdCode = string.Empty;
+        protected string vqdCode = string.Empty;
 
         public bool IsReady
         {
