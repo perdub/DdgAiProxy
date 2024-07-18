@@ -26,8 +26,7 @@ namespace DdgAiProxy
             add("Sec-Fetch-Mode", "cors");
             add("Sec-Fetch-Site", "same-origin");
             add("Accept-Language", "en-US,en;q=0.5");
-            add("Accept", "text/event-stream");
-            add("Accept-Encoding", "gzip, deflate, br");
+            add("Accept", "*/*");
             add("priority", "u=1, i");
         }
         private static HttpClientHandler buildHandler(bool useProxy = false, Uri proxyAddress = null, bool useCredentials = true, string proxyUserName = null, string proxyPassword = null)
