@@ -21,7 +21,7 @@ namespace DdgAiProxy
 
         protected string vqdCode = string.Empty;
 
-        public bool IsReady
+        public virtual bool IsReady
         {
             get
             {
