@@ -18,7 +18,6 @@ namespace DdgAiProxy
 #if NET5_0_OR_GREATER
             DefaultRequestVersion = new Version(2,0);
 #endif
-            add("Host", "duckduckgo.com");
             add("User-Agent", "curl/8.7.1");
             add("Sec-Ch-Ua", "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"");
             add("Sec-Ch-Ua-Mobile", "?0");

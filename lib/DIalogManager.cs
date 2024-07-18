@@ -32,13 +32,13 @@ namespace DdgAiProxy
         {
             client = customClient;
         }
-        public async Task Init(Model model = Model.Gpt3_5_turbo)
+        public virtual async Task Init(Model model = Model.Gpt3_5_turbo)
         {
             payload = PayloadBuilder.BuildEmpty(model);
             this.model = model;
             await getCode();
         }
-        public async Task<Response> SendMessage(string message)
+        public virtual async Task<Response> SendMessage(string message)
         {
             if (payload is null)
             {
@@ -52,7 +52,7 @@ namespace DdgAiProxy
             return await Talk();
         }
 
-        public async Task<Response> Talk()
+        public virtual async Task<Response> Talk()
         {
             if (string.IsNullOrEmpty(vqdCode))
             {
@@ -120,9 +120,8 @@ namespace DdgAiProxy
             }
         }
 
-        public void DirectAddMessage(Message message)
+        public virtual void DirectAddMessage(Message message)
         {
-
             payload.AddMessage(message);
         }
 
