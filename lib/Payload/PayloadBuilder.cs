@@ -33,6 +33,10 @@ namespace DdgAiProxy
         {
             payload.AddMessage(new Message(role, userMessage));
         }
+        public static void AddMessage(this Payload payload, string userMessage, string role = "user")
+        {
+            payload.AddMessage(new Message(role, userMessage));
+        }
         public static void AddMessage(this Payload payload, Message message)
         {
             Message[] messages = new Message[payload.Messages.Length + 1];
