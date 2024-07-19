@@ -46,7 +46,7 @@ namespace DdgAiProxy
             }
             else
             {
-                payload.AddMessage(message);
+                payload.AddMessage(message, Role.User);
             }
 
             return await Talk();

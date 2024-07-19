@@ -68,7 +68,7 @@ Now we are ready to send and response: call ```SendMessages(string text)``` and 
 - [ ] refactoring libary code
 - [ ] refactoring web server code
 - [ ] add more tool to control web server(like clear old dialogs(yeah it\`s not implemented now))
-- [ ] add proxy support
-- [ ] Net Standart support
+- [x] add proxy support
+- [x] Net Standart support
 - [ ] Support things like aot and trimming
 - [ ] ???
