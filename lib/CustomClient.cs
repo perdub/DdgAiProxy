@@ -74,6 +74,9 @@ namespace DdgAiProxy
             resp.Wait();
             return resp.Result;
         }
+        public new Task<HttpResponseMessage> SendAsync(HttpRequestMessage request){
+            return this.SendAsync(request, CancellationToken.None);
+        }
         public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             request.Headers.Add("Cookies", "dcm=1");
