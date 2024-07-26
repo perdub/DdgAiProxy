@@ -7,6 +7,10 @@ namespace DdgAiProxy
 
     public static class PayloadBuilder
     {
+        static internal readonly JsonSerializerOptions payloadSerializerOptions = new JsonSerializerOptions
+        {
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
         public static Payload BuildNew(Model model = Model.Gpt3_5_turbo, string prompt = "say hi")
         {
             Payload payload = new Payload();
@@ -24,10 +28,7 @@ namespace DdgAiProxy
         }
         public static string ToJson(this Payload payload)
         {
-            return JsonSerializer.Serialize<Payload>(payload, new JsonSerializerOptions
-            {
-                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
-            });
+            return JsonSerializer.Serialize<Payload>(payload, payloadSerializerOptions);
         }
         public static void AddMessage(this Payload payload, string userMessage, Role role = Role.User)
         {

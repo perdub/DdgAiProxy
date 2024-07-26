@@ -83,12 +83,27 @@ namespace DdgAiProxy
                 string data = sr.ReadLine();
                 if (!string.IsNullOrEmpty(data) && data != "data: [DONE]")
                 {
+                    if(data == "data: [DONE][LIMIT_CONVERSATION]"){
+                        response.Status = ResultType.ConservationLimit;
+                    }
                     data = data.Replace("data:", "").Trim();
                     var obj = JsonSerializer.Deserialize<ApiResponse>(data);
-                    responseBuilder.Append(obj.Message);
-                    if (response.ModelInfo is null)
-                    {
-                        response.ModelInfo = obj.Model;
+                    if(obj.Action == "success"){
+                        responseBuilder.Append(obj.Message);
+                        if (response.ModelInfo is null)
+                        {
+                            response.ModelInfo = obj.Model;
+                        }
+                    }
+                    else if(obj.Action == "error"){
+                        switch(obj.ErrorStatus){
+                            case 504:
+                                response.Status = ResultType.UpstreamError;
+                                break;
+                            case 429:
+                                response.Status = ResultType.InputLimit;
+                                break;
+                        }
                     }
                 }
             }
@@ -96,7 +111,8 @@ namespace DdgAiProxy
             payload.AddMessage(final, Role.AI);
 
             response.TextResponse = final;
-            response.Status = ResultType.Ok;
+            if(response.Status == ResultType.UnknownStatus)
+                response.Status = ResultType.Ok;
             return response;
         }
 

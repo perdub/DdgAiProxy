@@ -7,7 +7,8 @@ namespace DdgAiProxy
     {
         Ok,
         ConservationLimit,
-
+        UpstreamError,
+        InputLimit,
         UnknownStatus
     }
 }
