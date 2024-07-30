@@ -22,10 +22,10 @@ namespace lib
             await manager.Init(model);
             string response = await manager.SendMessage(prompt);
 
-            helper.WriteLine($"Model output: {response}");
+            helper.WriteLine($"Model: {model.GetName()} Prompt:{prompt} Model output: {response}");
         }
         public static IEnumerable<object[]> getParams(){
-            for(int i = 0; i<4;i++){
+            for(int i = 0; i<5;i++){
                 foreach(var prompt in getPrompts()){
                     yield return new object[]{(Model)i, prompt};
                 }
