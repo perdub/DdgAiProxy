@@ -10,7 +10,7 @@ Not everyone familiar with C#(or other .Net languages), so, if you want, you can
 > Web Api now are in early stage of development and I not reccomend to use it in production, especially if you plan to use a lot of dialogs
 
 ### Docker
-![![Docker Image Size](https://img.shields.io/docker/image-size/perdub/ddg-ai-proxy) ![Docker Image Version](https://img.shields.io/docker/v/perdub/ddg-ai-proxy)](https://hub.docker.com/r/perdub/ddg-ai-proxy)
+[![Docker Image Size](https://img.shields.io/docker/image-size/perdub/ddg-ai-proxy) ![Docker Image Version](https://img.shields.io/docker/v/perdub/ddg-ai-proxy)](https://hub.docker.com/r/perdub/ddg-ai-proxy)
 
 
 Faster way to run it - run in [docker container](https://hub.docker.com/r/perdub/ddg-ai-proxy) with
