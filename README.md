@@ -33,7 +33,7 @@ You can use 2 different apis: custom and OpenAi-compatible. Openai-compatible ap
 For init dialog, call `/base/api/init` with `model=0` as query param, where value it\`s a `Number representation`
 | Model | Number representation | Model Name |
 |---|---|---|
-| GPT-4o mini | 4 | gpt-4o-mini |
+| GPT-4o mini | 0 | gpt-4o-mini |
 | Claude 3 Haiku | 1 | claude-3-haiku-20240307 |
 | ~~Llama 3 70B~~ | ~~2~~ | ~~meta-llama/Llama-3-70b-chat-hf~~ |
 | Llama 3.1 70B | 5 | meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo |
