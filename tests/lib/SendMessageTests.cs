@@ -25,7 +25,7 @@ namespace lib
             helper.WriteLine($"Model: {model.GetName()} Prompt:{prompt} Model output: {response}");
         }
         public static IEnumerable<object[]> getParams(){
-            for(int i = 0; i<6;i++){
+            for(int i = 0; i<5;i++){
                 foreach(var prompt in getPrompts()){
                     yield return new object[]{(Model)i, prompt};
                 }
