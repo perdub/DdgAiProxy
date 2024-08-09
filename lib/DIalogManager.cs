@@ -28,6 +28,12 @@ namespace DdgAiProxy
                 return !string.IsNullOrEmpty(vqdCode);
             }
         }
+
+        public virtual Model SurrentModel{
+            get{
+                return model;
+            }
+        }
         public DialogManager(CustomClient customClient)
         {
             client = customClient;
