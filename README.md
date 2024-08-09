@@ -36,11 +36,15 @@ For init dialog, call `/base/api/init` with `model=0` as query param, where valu
 | ~~GPT-3.5-turbo~~ | ~~0~~ | ~~gpt-3.5-turbo-0125~~ |
 | GPT-4o mini | 4 | gpt-4o-mini |
 | Claude 3 Haiku | 1 | claude-3-haiku-20240307 |
-| Llama 3 70B | 2 | meta-llama/Llama-3-70b-chat-hf |
+| ~~Llama 3 70B~~ | ~~2~~ | ~~meta-llama/Llama-3-70b-chat-hf~~ |
+| Llama 3.1 70B | 5 | meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo |
 | Mixtral 8x7B | 3 | mistralai/Mixtral-8x7B-Instruct-v0.1 |
 
 > [!NOTE]  
 > `GPT-3.5-turbo` was replaced by Duckduckgo AI to `GPT-4o mini`, but tests still passed and api is working, so use it at your own risk if you want.
+
+> [!NOTE]  
+> `Llama 3 70B` was updated by Duckduckgo AI to `Llama 3.1 70B`, but tests still passed with old model and api is working, so use it at your own risk if you want.
 
 Response will be contain a `ddg-ai-proxy-guid` header, which represent you dialog id. After this, call `/base/api/talk` with 2 query params: `guid` - header from previous request and `message` - you prompt to llm.
 

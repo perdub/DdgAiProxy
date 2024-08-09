@@ -9,7 +9,8 @@ namespace DdgAiProxy
         Claude3_Haiku = 1,
         Llama3_70B = 2,
         Mixtral_8x7B = 3,
-        Gpt4oMini = 4
+        Gpt4oMini = 4,
+        Llama3_1_70B = 5
     }
     public static class ModelIds
     {
@@ -27,6 +28,8 @@ namespace DdgAiProxy
                     return "mistralai/Mixtral-8x7B-Instruct-v0.1";
                 case Model.Gpt4oMini:
                     return "gpt-4o-mini";
+                case Model.Llama3_1_70B:
+                    return "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo";
             }
             return string.Empty;
         }
@@ -44,6 +47,8 @@ namespace DdgAiProxy
                     return Model.Mixtral_8x7B;
                 case "gpt-4o-mini":
                     return Model.Gpt4oMini; 
+                case "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo":
+                    return Model.Llama3_1_70B;
                 default:
                     throw new Exception("fall to GetModel");
             }
