@@ -45,7 +45,7 @@ public class OpenAiCompatibleApiController(CustomClient client) : Controller{
             model = chatCompletionRequest.Model.GetModel();
         }
         catch{
-            model = Model.Gpt3_5_turbo;
+            model = Model.Gpt4oMini;
             HttpContext.Response.Headers.Append("ddg-ai-proxy-notify", "Model incorrect, gpt3.5 will be selected and used.");
         }
 

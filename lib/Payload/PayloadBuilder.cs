@@ -11,7 +11,7 @@ namespace DdgAiProxy
         {
             Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
         };
-        public static Payload BuildNew(Model model = Model.Gpt3_5_turbo, string prompt = "say hi")
+        public static Payload BuildNew(Model model = Model.Gpt4oMini, string prompt = "say hi")
         {
             Payload payload = new Payload();
             payload.ModelName = model.GetName();
@@ -20,7 +20,7 @@ namespace DdgAiProxy
         };
             return payload;
         }
-        public static Payload BuildEmpty(Model model = Model.Gpt3_5_turbo)
+        public static Payload BuildEmpty(Model model = Model.Gpt4oMini)
         {
             Payload payload = new Payload();
             payload.ModelName = model.GetName();

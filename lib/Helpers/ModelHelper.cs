@@ -5,12 +5,11 @@ namespace DdgAiProxy
 
     public enum Model
     {
-        Gpt3_5_turbo = 0,
+        Gpt4oMini = 0,
         Claude3_Haiku = 1,
         Llama3_70B = 2,
         Mixtral_8x7B = 3,
-        Gpt4oMini = 4,
-        Llama3_1_70B = 5
+        Llama3_1_70B = 4
     }
     public static class ModelIds
     {
@@ -18,8 +17,6 @@ namespace DdgAiProxy
         {
             switch (model)
             {
-                case Model.Gpt3_5_turbo:
-                    return "gpt-3.5-turbo-0125";
                 case Model.Claude3_Haiku:
                     return "claude-3-haiku-20240307";
                 case Model.Llama3_70B:
@@ -37,8 +34,6 @@ namespace DdgAiProxy
         {
             switch (str)
             {
-                case "gpt-3.5-turbo-0125":
-                    return Model.Gpt3_5_turbo;
                 case "claude-3-haiku-20240307":
                     return Model.Claude3_Haiku;
                 case "meta-llama/Llama-3-70b-chat-hf":

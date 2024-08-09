@@ -15,7 +15,7 @@ namespace DdgAiProxy
 
     public class DialogManager
     {
-        private Model model = Model.Gpt3_5_turbo;
+        private Model model = Model.Gpt4oMini;
         protected Payload payload;
         protected CustomClient client;
 
@@ -32,7 +32,7 @@ namespace DdgAiProxy
         {
             client = customClient;
         }
-        public virtual async Task Init(Model model = Model.Gpt3_5_turbo)
+        public virtual async Task Init(Model model = Model.Gpt4oMini)
         {
             payload = PayloadBuilder.BuildEmpty(model);
             this.model = model;

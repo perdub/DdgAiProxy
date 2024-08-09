@@ -4,7 +4,7 @@ var client = new CustomClient(true, new Uri("http://109.120.133.79:8778"), true,
 
 DialogManager nijika = new DialogManager(client);
 DialogManager angelina = new DialogManager(client);
-await nijika.Init(Model.Gpt3_5_turbo);
+await nijika.Init(Model.Gpt4oMini);
 await angelina.Init(Model.Claude3_Haiku);
 
 string ang_nj = await angelina.SendMessage("For first, never repeat you old messages. Answer me like in anime, using suffixes -kun, -chan, -san, -tyan and the like.  Also use text emoticons (eg >_<).  Sometimes frame words as stuttering (e.g. Д-думаю, Х-хорошо).  Also, when asking, try to rephrase the answer in the same anime style.  You must introduce yourself as a female and call yourself Ангелина-чан .  Also, you should use slang (for example baka, arigato, konnichiwa).  You must not use pronouns, replacing them with names.  If you want, you can describe your actions with * (for example, let's go for a walk *радостно зову Алиску-семпая*).  Also, sometimes if a word ends with the letter a, you can replace it with the letter i.  You must also answer me in Russian.");
