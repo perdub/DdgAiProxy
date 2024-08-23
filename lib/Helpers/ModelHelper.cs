@@ -7,9 +7,8 @@ namespace DdgAiProxy
     {
         Gpt4oMini = 0,
         Claude3_Haiku = 1,
-        Llama3_70B = 2,
-        Mixtral_8x7B = 3,
-        Llama3_1_70B = 4
+        Llama3_1_70B = 2,
+        Mixtral_8x7B = 3
     }
     public static class ModelIds
     {
@@ -19,8 +18,6 @@ namespace DdgAiProxy
             {
                 case Model.Claude3_Haiku:
                     return "claude-3-haiku-20240307";
-                case Model.Llama3_70B:
-                    return "meta-llama/Llama-3-70b-chat-hf";
                 case Model.Mixtral_8x7B:
                     return "mistralai/Mixtral-8x7B-Instruct-v0.1";
                 case Model.Gpt4oMini:
@@ -36,8 +33,6 @@ namespace DdgAiProxy
             {
                 case "claude-3-haiku-20240307":
                     return Model.Claude3_Haiku;
-                case "meta-llama/Llama-3-70b-chat-hf":
-                    return Model.Llama3_70B;
                 case "mistralai/Mixtral-8x7B-Instruct-v0.1":
                     return Model.Mixtral_8x7B;
                 case "gpt-4o-mini":
