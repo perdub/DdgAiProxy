@@ -72,13 +72,21 @@ namespace DdgAiProxy
                 content,
                 vqdCode);
 
-            if (respone.StatusCode != System.Net.HttpStatusCode.OK)
-            {
-                Debug.Print(respone.StatusCode.ToString());
-                throw new FalledRequestException($"Fall to send chat request. Status code: {respone.StatusCode}");
-            }
             Response response = new Response();
             response.ResponseTime = DateTime.Now;
+
+            if (respone.StatusCode != System.Net.HttpStatusCode.OK)
+            {
+                /*
+                Debug.Print(respone.StatusCode.ToString());
+                throw new FalledRequestException($"Fall to send chat request. Status code: {respone.StatusCode}");*/
+                switch(respone.StatusCode){
+                    case System.Net.HttpStatusCode.Gone:
+                        Debug.Print("410 code returned. Context on server side are reach a livetime end.");
+                        response.Status = ResultType.Outdated;
+                        return response;
+                }
+            }
 
             vqdCode = respone.Headers.GetValues("x-vqd-4").First();
             var stream = await respone.Content.ReadAsStreamAsync();

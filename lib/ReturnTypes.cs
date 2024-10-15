@@ -9,6 +9,7 @@ namespace DdgAiProxy
         ConservationLimit,
         UpstreamError,
         InputLimit,
+        Outdated,
         UnknownStatus
     }
 }
