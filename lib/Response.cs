@@ -14,6 +14,8 @@ namespace DdgAiProxy
         #endif
         public DateTime ResponseTime { get; set; }
 
+        
+
         public static implicit operator string(Response response)
         {
             return response.TextResponse;
