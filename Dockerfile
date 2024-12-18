@@ -1,5 +1,5 @@
 #building
-FROM mcr.microsoft.com/dotnet/sdk:8.0.303-alpine3.20 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS builder
 WORKDIR /app
 COPY . .
 RUN dotnet publish web/DdgAiProxy.csproj -c Release -r linux-musl-x64 --self-contained true -o /app/out
