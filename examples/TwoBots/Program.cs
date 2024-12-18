@@ -1,6 +1,6 @@
 ﻿using DdgAiProxy;
 
-var client = new CustomClient(true, new Uri("http://109.120.133.79:8778"), true, "nijika", "myipis1234");
+var client = new CustomClient();
 
 DialogManager nijika = new DialogManager(client);
 DialogManager angelina = new DialogManager(client);
