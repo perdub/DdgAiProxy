@@ -18,16 +18,13 @@ namespace DdgAiProxy
 #if NET5_0_OR_GREATER
             DefaultRequestVersion = new Version(2,0);
 #endif
-            add("User-Agent", "curl/8.7.1");
-            add("Sec-Ch-Ua", "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"");
-            add("Sec-Ch-Ua-Mobile", "?0");
-            add("Sec-Fetch-Dest", "empty");
-            add("Sec-Ch-Ua-Platform", "Windows");
-            add("Sec-Fetch-Mode", "cors");
-            add("Sec-Fetch-Site", "same-origin");
-            add("Accept-Language", "en-US,en;q=0.5");
-            add("Accept", "*/*");
-            add("priority", "u=1, i");
+            add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36");
+            
+            
+            add("Accept", "text/event-stream");
+            add("Priority", "u=1, i");
+            add("Referer", "https://duckduckgo.com/");
+            add("Origin", "https://duckduckgo.com");
         }
         private static HttpClientHandler buildHandler(bool useProxy = false, Uri proxyAddress = null, bool useCredentials = true, string proxyUserName = null, string proxyPassword = null)
         {
@@ -79,7 +76,7 @@ namespace DdgAiProxy
         }
         public override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.Headers.Add("Cookies", "dcm=1");
+            request.Headers.Add("Cookie", "dcs=1; dcm=3");
             return base.SendAsync(request, cancellationToken);
         }
         public new async Task<HttpResponseMessage> PostAsync(
@@ -96,7 +93,7 @@ namespace DdgAiProxy
         {
             HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, uri);
             httpRequestMessage.Content = httpContent;
-            httpRequestMessage.Headers.Add("x-vqd-4", vqdCode);
+            httpRequestMessage.Headers.Add("X-Vqd-4", vqdCode);
             return await SendAsync(httpRequestMessage, CancellationToken.None);
         }
         public new async Task<HttpResponseMessage> GetAsync(

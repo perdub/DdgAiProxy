@@ -80,15 +80,21 @@ namespace DdgAiProxy
                 /*
                 Debug.Print(respone.StatusCode.ToString());
                 throw new FalledRequestException($"Fall to send chat request. Status code: {respone.StatusCode}");*/
-                switch(respone.StatusCode){
-                    case System.Net.HttpStatusCode.Gone:
+                switch((int)respone.StatusCode){
+                    case 410:
                         Debug.Print("410 code returned. Context on server side are reach a livetime end.");
                         response.Status = ResultType.Outdated;
+                        return response;
+                    case 418:
+                        Debug.Print("418 code returned. Dicksuckers detected!");
+                        response.Status = ResultType.UpstreamError;
+                        using(StreamReader _sr = new StreamReader(await respone.Content.ReadAsStreamAsync())){
+                            response.TextResponse = _sr.ReadToEnd();
+                        }
                         return response;
                 }
             }
 
-            vqdCode = respone.Headers.GetValues("x-vqd-4").First();
             var stream = await respone.Content.ReadAsStreamAsync();
             var sr = new StreamReader(stream);
             StringBuilder responseBuilder = new StringBuilder();
@@ -127,6 +133,9 @@ namespace DdgAiProxy
             response.TextResponse = final;
             if(response.Status == ResultType.UnknownStatus)
                 response.Status = ResultType.Ok;
+            
+            vqdCode = respone.Headers.GetValues("x-vqd-4").First();
+
             return response;
         }
 

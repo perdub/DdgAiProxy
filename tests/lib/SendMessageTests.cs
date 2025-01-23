@@ -20,9 +20,11 @@ namespace lib
         {
             DialogManager manager = new DialogManager(new CustomClient());
             await manager.Init(model);
-            string response = await manager.SendMessage(prompt);
+            var response = await manager.SendMessage(prompt);
 
-            helper.WriteLine($"Model: {model.GetName()} Prompt:{prompt} Model output: {response}");
+            helper.WriteLine($"Model: {model.GetName()} Prompt:{prompt} Model output: {response.TextResponse}");
+
+            Assert.True(response.Status == ResultType.Ok);
         }
         public static IEnumerable<object[]> getParams(){
             for(int i = 0; i<4;i++){
