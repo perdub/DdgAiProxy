@@ -18,6 +18,8 @@ namespace lib
         [MemberData(nameof(getParams))]
         public async Task SendMessage(Model model, string prompt)
         {
+            await Task.Delay(Random.Shared.Next(2 << 16));
+
             DialogManager manager = new DialogManager(new CustomClient());
             await manager.Init(model);
             var response = await manager.SendMessage(prompt);
