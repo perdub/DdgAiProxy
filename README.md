@@ -1,3 +1,8 @@
+> [!WARNING]  
+> # Important note!(Date: 04.20.2025)
+> Because DuckDuckGo change his api to work with Duck.ai and because i too lazy and because only i use this library in one my project and this not even a default option in project, i won`t support this library further. I'm happy with the emotions that that project gave me using this library, but it's been based mainly on Gemini for six months now.
+
+
 # DdgAiProxy
 
 DdgAiProxy is a libary to work with Duckduckgo AI and make request with it. Also, repo contains web server to work with libary.
